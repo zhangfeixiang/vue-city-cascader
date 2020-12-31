@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>vue-city-cascader</title>
+    <link rel="stylesheet" href="./index.css"></head>
+  <!-- 引入样式 -->
+  <link rel="stylesheet"
+    href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src='https://unpkg.com/vue@2.2.6'></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <body>
+    <script src="../dist/vue-city-cascader.min.js"></script>
+    <div id="app">
+      <template>
+        <city-cascader @onSubmit="handleSubmit" v-model="provinces"></city-cascader>
+      </template>
+    </div>
+    <script>var Main = {
+        name: 'test',
+        data() {
+          return {
+            provinces: [],
+          }
+        },
+        methods: {
+          formatCitiesData(regionList) {
+            var t = arguments.length > 1 && void 0 !== arguments[1] && arguments[1];
+            return regionList.reduce(function(total, _province) {
+              // 直辖市直接加入total
+              if (_province.selected && directCity.indexOf(_province.regionId) > -1 && t) {
+                return total.concat(_province.regionId);
+              }
+              var selectedRegionIds = _province.cities.filter(function(e) {
+                return e.selected;
+              }).map(function(e) {
+                return e.regionId;
+              });
+              return total.concat(selectedRegionIds);
+            },
+            []);
+          },
+          handleSubmit(result) {
+            var value = result.reduce(function(total, part) {
+              var _provinces = part.provinces;
+              return total.concat(_provinces.map(function(province) {
+                var cities = province.cities;
+                // 直辖市，并且cities为空
+                if (directCity.indexOf(province.regionId) > -1 && 0 === province.cities.length) {
+                  cities = [{
+                    regionId: province.regionId + 100,
+                    name: province.name,
+                    selected: province.selected,
+                  },
+                  ];
+                }
+                return Object.assign(province, {},
+                {
+                  cities: cities
+                });
+              }));
+            },
+            new Array());
+            let formatData = this.formatCitiesData(value);
+            console.log(formatData);
+            this.provinces = value;
+          },
+          handleDelete(e) {
+            var t = this.provinces.map(function(t) {
+              return Object.assign({},t, {
+                cities: t.cities.filter(function(t) {
+                  return t.regionId !== e;
+                }),
+              });
+            }).filter(function(e) {
+              return e.cities.length > 0;
+            });
+            this.provinces = t;
+          },
+        }
+      };
+      var Ctor = Vue.extend(Main);
+       new Ctor().$mount('#app');
+       </script>
+  </body>
+
+</html>

@@ -738,7 +738,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/json-schema@^7.0.5":
+"@types/json-schema@^7.0.5", "@types/json-schema@^7.0.6":
   version "7.0.6"
   resolved "https://registry.npm.taobao.org/@types/json-schema/download/@types/json-schema-7.0.6.tgz?cache=0&sync_timestamp=1605053861867&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjson-schema%2Fdownload%2F%40types%2Fjson-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
   integrity sha1-9MfsQ+gbMZqYFRFQMXCfJph4kfA=
@@ -1264,7 +1264,7 @@ ajv@^5.2.3, ajv@^5.3.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.9.1:
+ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5, ajv@^6.9.1:
   version "6.12.6"
   resolved "https://registry.npm.taobao.org/ajv/download/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha1-uvWmLoArB9l3A0WG+MO69a3ybfQ=
@@ -2249,6 +2249,11 @@ base64-js@^1.0.2:
   version "1.5.1"
   resolved "https://registry.npm.taobao.org/base64-js/download/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha1-GxtEAWClv3rUC2UPCVljSBkDkwo=
+
+base64-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/base64-loader/-/base64-loader-1.0.0.tgz#e530bad88e906dd2a1fad0af2d9e683fa8bd92a8"
+  integrity sha1-5TC62I6QbdKh+tCvLZ5oP6i9kqg=
 
 base@^0.11.1:
   version "0.11.2"
@@ -6280,6 +6285,15 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2
     emojis-list "^3.0.0"
     json5 "^1.0.1"
 
+loader-utils@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-2.0.0.tgz#e4cace5b816d425a166b5f097e10cd12b36064b0"
+  integrity sha512-rP4F0h2RaWSvPEkD7BLDFQnvSf+nK+wr3ESUjNTyAGobqrijmW92zc+SO6d4p4B1wh7+B/Jg1mkQe5NYUEHtHQ==
+  dependencies:
+    big.js "^5.2.2"
+    emojis-list "^3.0.0"
+    json5 "^2.1.2"
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/locate-path/download/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -6873,10 +6887,10 @@ node-releases@^1.1.67:
   resolved "https://registry.npm.taobao.org/node-releases/download/node-releases-1.1.67.tgz?cache=0&sync_timestamp=1605581282886&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnode-releases%2Fdownload%2Fnode-releases-1.1.67.tgz#28ebfcccd0baa6aad8e8d4d8fe4cbc49ae239c12"
   integrity sha1-KOv8zNC6pqrY6NTY/ky8Sa4jnBI=
 
-node-sass@^4.9.2:
+node-sass@^4.14.1:
   version "4.14.1"
-  resolved "https://registry.npm.taobao.org/node-sass/download/node-sass-4.14.1.tgz?cache=0&sync_timestamp=1604151125260&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnode-sass%2Fdownload%2Fnode-sass-4.14.1.tgz#99c87ec2efb7047ed638fb4c9db7f3a42e2217b5"
-  integrity sha1-mch+wu+3BH7WOPtMnbfzpC4iF7U=
+  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.14.1.tgz#99c87ec2efb7047ed638fb4c9db7f3a42e2217b5"
+  integrity sha512-sjCuOlvGyCJS40R8BscF5vhVlQjNN069NtQ1gSxyK1u9iqvn6tf7O1R4GNowVZfiZUCRt5MmMs1xd+4V/7Yr0g==
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -8828,10 +8842,10 @@ sass-graph@2.2.5:
     scss-tokenizer "^0.2.3"
     yargs "^13.3.2"
 
-sass-loader@^7.0.3:
+sass-loader@^7.3.1:
   version "7.3.1"
-  resolved "https://registry.npm.taobao.org/sass-loader/download/sass-loader-7.3.1.tgz#a5bf68a04bcea1c13ff842d747150f7ab7d0d23f"
-  integrity sha1-pb9ooEvOocE/+ELXRxUPerfQ0j8=
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-7.3.1.tgz#a5bf68a04bcea1c13ff842d747150f7ab7d0d23f"
+  integrity sha512-tuU7+zm0pTCynKYHpdqaPpe+MMTQ76I9TPZ7i4/5dZsigE350shQWe5EZNl5dBidM49TPET75tNqRbcsUZWeNA==
   dependencies:
     clone-deep "^4.0.1"
     loader-utils "^1.0.1"
@@ -8860,6 +8874,15 @@ schema-utils@^2.6.5:
   dependencies:
     "@types/json-schema" "^7.0.5"
     ajv "^6.12.4"
+    ajv-keywords "^3.5.2"
+
+schema-utils@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-3.0.0.tgz#67502f6aa2b66a2d4032b4279a2944978a0913ef"
+  integrity sha512-6D82/xSzO094ajanoOSbe4YvXWMfn2A//8Y1+MUqFAJul5Bs+yn36xbK9OtNDcRVSBJ9jjeoXftM6CfztsjOAA==
+  dependencies:
+    "@types/json-schema" "^7.0.6"
+    ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
 scss-tokenizer@^0.2.3:
@@ -9510,6 +9533,14 @@ strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.npm.taobao.org/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
+
+style-loader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-2.0.0.tgz#9669602fd4690740eaaec137799a03addbbc393c"
+  integrity sha512-Z0gYUJmzZ6ZdRUqpg1r8GsaFKypE+3xAzuFeMuoHgjc9KZv3wMyCRjQIWEbhoFSq7+7yoHXySDJyyWQaPajeiQ==
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
 
 stylehacks@^4.0.0:
   version "4.0.3"
@@ -10376,10 +10407,10 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0, webpack-sources@^1.4.0, webpack-
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^2.2.0:
+webpack@^2.7.0:
   version "2.7.0"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-2.7.0.tgz#b2a1226804373ffd3d03ea9c6bd525067034f6b1"
-  integrity sha1-sqEiaAQ3P/09A+qca9UlBnA09rE=
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.7.0.tgz#b2a1226804373ffd3d03ea9c6bd525067034f6b1"
+  integrity sha512-MjAA0ZqO1ba7ZQJRnoCdbM56mmFpipOPUv/vQpwwfSI42p5PVDdoiuK2AL2FwFUVgT859Jr43bFZXRg/LNsqvg==
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"

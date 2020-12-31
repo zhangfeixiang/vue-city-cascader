@@ -68,8 +68,6 @@ export default {
       type: Array,
       default: () => [],
     },
-    onSubmit: Function,
-    onClose: Function,
   },
   data() {
     return {
@@ -96,14 +94,6 @@ export default {
           return e.selected || e.indeterminate;
         })
       );
-    },
-  },
-  watch: {
-    value(val) {
-      if (!isEqual(val, this.checkedValue)) {
-        this.checkedValue = val;
-        this.computePresentContent();
-      }
     },
   },
   created() {
@@ -360,5 +350,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

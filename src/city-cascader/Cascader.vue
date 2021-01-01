@@ -46,6 +46,7 @@ const defaultOptions = {
   regions: [],
 };
 import regions from "./const/region";
+import { getCodes, directCity } from "./../utils";
 
 function fetchRegionData() {
   return new Promise((resolve) => {
@@ -94,6 +95,14 @@ export default {
           return e.selected || e.indeterminate;
         })
       );
+    },
+  },
+  watch: {
+    value: {
+      handler: function () {
+        this.getData();
+      },
+      deep: true,
     },
   },
   created() {
@@ -185,9 +194,11 @@ export default {
         });
       }
     },
+
     initData(regions) {
       let ignore = this.ignore;
       let regionNum = 0;
+      regions = JSON.parse(JSON.stringify(regions));
       regions = regions.filter((e) => {
         let provinces = e.provinces || [];
         let countries = e.countries || [];
@@ -340,10 +351,37 @@ export default {
       this.regionNum = regionNum;
       this.loading = false;
     },
-    handleSubmit() {
-      var regionList = this.regionList;
-      this.$emit("onSubmit", regionList);
-      this.$emit("onClose");
+
+    handleSubmit: function () {
+      var selectedList = this.regionList.reduce(function (total, part) {
+        var _provinces = part.provinces;
+        return total.concat(
+          _provinces.map(function (province) {
+            var cities = province.cities;
+            // 直辖市，并且cities为空
+            if (
+              directCity.indexOf(province.regionId) > -1 &&
+              !province.cities.length
+            ) {
+              cities = [
+                {
+                  regionId: province.regionId,
+                  name: province.name,
+                  selected: province.selected,
+                },
+              ];
+            }
+            return Object.assign(province, {
+              cities: cities,
+            });
+          })
+        );
+      }, new Array());
+      let value = getCodes(selectedList);
+
+      this.$emit("input", value);
+      this.$emit("on-submit", value, selectedList);
+      this.$emit("on-close");
     },
   },
 };

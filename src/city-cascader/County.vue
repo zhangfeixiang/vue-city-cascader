@@ -36,9 +36,9 @@ export default {
             item.selected = false;
           }
         }
-        
-        this.$emit('input', val)
-      }
+
+        this.$emit("input", val);
+      },
     },
   },
   props: {
@@ -67,7 +67,7 @@ export default {
         city.selected = !1;
       }
       city.selectNum = e.length;
-      this.$emit("onChange", city);
+      this.$emit("change", city);
     },
   },
 };

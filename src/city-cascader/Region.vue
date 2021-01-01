@@ -31,7 +31,7 @@
           <Province
             :province="_province"
             :index="index"
-            @onChange="(val) => selectCity(index)(val)"
+            @change="(val) => selectCity(index)(val)"
           />
           <span slot="reference">
             {{ _province.name }}
@@ -60,7 +60,7 @@ export default {
     Province,
   },
   props: {
-    onChange: Function,
+    change: Function,
     part: Object, // 其实是region
   },
   computed: {
@@ -105,7 +105,7 @@ export default {
           provinces.some((e) => {
             return e.selected || e.indeterminate;
           });
-        this.$emit("onChange", part);
+        this.$emit("change", part);
       };
     },
     selectProvince(e) {
@@ -151,7 +151,7 @@ export default {
         provinces.some((e) => {
           return e.selected || e.indeterminate;
         });
-      this.$emit("onChange", part);
+      this.$emit("change", part);
     },
     selectPart(checked) {
       var part = this.part;
@@ -174,7 +174,7 @@ export default {
         });
         _province.selectNum = provinceSelectNum;
       });
-      this.$emit("onChange", part);
+      this.$emit("change", part);
     },
   },
 };

@@ -17,7 +17,7 @@
 export default {
   props: {
     country: Object,
-    onChange: Function,
+    change: Function,
   },
   computed: {
     selectedProvincesRegionId() {
@@ -46,7 +46,7 @@ export default {
             (country.selected = currentProvince.length === provinces.length)
           );
       country.selectNum = currentProvince.length;
-      this.$emit("onChange", country);
+      this.$emit("change", country);
     },
   },
 };

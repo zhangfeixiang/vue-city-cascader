@@ -17,7 +17,7 @@
         trigger="hover"
         placement="right"
       >
-        <County :city="_city" @onChange="selectCounty(_index)" />
+        <County :city="_city" @change="selectCounty(_index)" />
         <span slot="reference">
           {{ _city.name }}
           <span v-if="_city.selectNum" class="region-part__num"
@@ -44,7 +44,7 @@ export default {
   },
   props: {
     province: Object,
-    onChange: Function,
+    change: Function,
   },
   computed: {
     selectedCitiesRegionIds: {
@@ -93,7 +93,7 @@ export default {
             return _city.selected || _city.indeterminate;
           });
 
-        this.$emit("onChange", province);
+        this.$emit("change", province);
       };
     },
 
@@ -125,7 +125,7 @@ export default {
         currentCity.length > 0 && currentCity.length < cities.length;
       province.selected = currentCity.length === cities.length;
       province.selectNum = citySelectNum;
-      this.$emit("onChange", province);
+      this.$emit("change", province);
     },
   },
 };

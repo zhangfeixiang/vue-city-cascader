@@ -3,17 +3,17 @@
 <template>
   <div>
     <template v-for="(t, n) in regionList">
-      <Countries
+      <CountyGroup
         :key="t.part"
         v-if="t.countries.length"
         :part="t"
-        @onChange="(val) => handleChange(n)(val)"
-      ></Countries>
+        @change="(val) => handleChange(n)(val)"
+      ></CountyGroup>
       <Region
         :key="t.part"
         v-else
         :part="t"
-        @onChange="(val) => handleChange(n)(val)"
+        @change="(val) => handleChange(n)(val)"
       ></Region>
     </template>
     <div class="region-dialog__footer">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Countries from "./Countries.vue";
+import CountyGroup from "./CountyGroup.vue";
 import Region from "./Region.vue";
 const defaultOptions = {
   showOversea: false,
@@ -55,7 +55,7 @@ function fetchRegionData() {
 }
 export default {
   components: {
-    Countries,
+    CountyGroup,
     Region,
   },
   props: {

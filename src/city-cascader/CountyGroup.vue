@@ -24,7 +24,7 @@
             <Township
               :country="country"
               :index="index"
-              @onChange="selectProvince(index)"
+              @change="selectProvince(index)"
             />
             <span slot="reference">
               {{ country.name }}
@@ -50,7 +50,7 @@
 import Township from "./Township.vue";
 export default {
   props: {
-    onChange: Function,
+    change: Function,
     part: Object, // 其实是region
   },
   data() {
@@ -84,7 +84,7 @@ export default {
           countries.some((e) => {
             return e.selected || e.indeterminate;
           });
-        this.$emit("onChange", part);
+        this.$emit("change", part);
       };
     },
     selectCountry(e) {
@@ -118,7 +118,7 @@ export default {
         countries.some((e) => {
           return e.selected || e.indeterminate;
         });
-      this.$emit("onChange", part);
+      this.$emit("change", part);
     },
     selectPart(checked) {
       var part = this.part,
@@ -135,7 +135,7 @@ export default {
           province.selected = checked;
         });
       });
-      this.$emit("onChange", part);
+      this.$emit("change", part);
     },
   },
 };

@@ -1,10 +1,12 @@
 <template>
+  <!-- 海外-国家有下级：demo里未展示这部分provinces:[] -->
   <el-checkbox-group
     class="region-province__cities"
     @change="selectProvince"
-    v-model="selectedProvincesRegionId"
+    v-model="selectedProvincesRegionIds"
   >
     <el-checkbox
+      class="checkbox-wrap"
       v-for="province in country.provinces"
       :key="province.regionId"
       :label="province.regionId"
@@ -20,14 +22,28 @@ export default {
     change: Function,
   },
   computed: {
-    selectedProvincesRegionId() {
-      return this.country.provinces
-        .filter(function (e) {
-          return e.selected;
-        })
-        .map(function (e) {
-          return e.regionId;
-        });
+    selectedProvincesRegionIds: {
+      get() {
+        return this.country.provinces
+          .filter(function (e) {
+            return e.selected;
+          })
+          .map(function (e) {
+            return e.regionId;
+          });
+      },
+      set(val) {
+        for (let i = 0; i < this.country.provinces.length; i++) {
+          const item = this.country.provinces[i];
+          if (val.includes(item.regionId)) {
+            item.selected = true;
+          } else {
+            item.selected = false;
+          }
+        }
+
+        this.$emit("input", val);
+      },
     },
   },
   methods: {
@@ -51,6 +67,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

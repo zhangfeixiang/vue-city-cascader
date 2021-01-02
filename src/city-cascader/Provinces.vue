@@ -1,4 +1,5 @@
 <template>
+  <!-- 省份 -->
   <el-checkbox-group
     class="region-province__cities"
     @change="selectCity"
@@ -11,7 +12,7 @@
       :label="_city.regionId"
       :indeterminate="_city.indeterminate"
     >
-      <!-- 市区有县级 -不走这里-->
+      <!-- 市区有县级-->
       <el-popover
         v-if="_city.counties && _city.counties.length"
         trigger="hover"
@@ -26,7 +27,7 @@
           <i class="region-province__more"></i>
         </span>
       </el-popover>
-      <template>
+      <template v-else>
         {{ _city.name }}
         <span v-if="_city.selectNum" class="region-part__num"
           >({{ _city.selectNum }})</span
@@ -130,19 +131,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.region-province__cities {
-  max-height: 300px;
-  overflow-y: auto;
-  .checkbox-wrap {
-    display: flex;
-    align-items: center;
-    font-size: 0;
-    margin-top: 10px;
-    .pop-wrapper {
-      font-size: 0;
-    }
-  }
-}
-</style>

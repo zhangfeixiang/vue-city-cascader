@@ -1,5 +1,6 @@
 
 <template>
+  <!-- 县、区、县级市 -->
   <el-checkbox-group
     class="region-province__cities"
     @change="selectCounty"
@@ -9,8 +10,8 @@
       v-for="county in city.counties"
       :key="county.regionId"
       :label="county.regionId"
-      >{{ county.name }}</el-checkbox
-    >
+      >{{ county.name }}
+    </el-checkbox>
   </el-checkbox-group>
 </template>
 
@@ -72,6 +73,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

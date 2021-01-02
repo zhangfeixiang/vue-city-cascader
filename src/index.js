@@ -1,6 +1,6 @@
 import _CityCascader from './city-cascader/Cascader.vue';
 import _CityDisplay from './city-display/Display.vue';
-
+import './index.scss'
 export const CityDisplay = _CityDisplay;
 
 export default _CityCascader;

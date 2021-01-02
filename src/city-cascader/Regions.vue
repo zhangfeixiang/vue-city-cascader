@@ -1,5 +1,6 @@
 <template>
   <div class="region-part__block">
+    <!-- 地区 -->
     <el-checkbox
       class="checkbox-wrap"
       :indeterminate="part.indeterminate"
@@ -28,7 +29,7 @@
           trigger="hover"
           :placement="position"
         >
-          <Province
+          <Provinces
             :province="_province"
             :index="index"
             @change="(val) => selectCity(index)(val)"
@@ -54,10 +55,10 @@
 </template>
 
 <script>
-import Province from "./Province.vue";
+import Provinces from "./Provinces.vue";
 export default {
   components: {
-    Province,
+    Provinces,
   },
   props: {
     change: Function,
@@ -179,35 +180,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.el-checkbox:last-of-type {
-  margin-right: 25px;
-}
-.region-part__block {
-  display: flex;
-  width: 650px;
-  margin-bottom: 10px;
-  .checkbox-wrap {
-    flex-basis: 15%;
-  }
-}
-
-.region-part__province {
-  flex-basis: 85%;
-  .checkbox-wrap {
-    width: 32%;
-    margin-bottom: 10px;
-    margin-right: 0;
-    .region-province__more {
-      display: inline-block;
-      // background: url("./img/arrow.png") no-repeat;
-      background-size: 9px 5px;
-      background-position: 50%;
-      width: 14px;
-      height: 14px;
-      vertical-align: middle;
-    }
-  }
-}
-</style>

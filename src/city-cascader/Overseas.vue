@@ -1,53 +1,59 @@
 <template>
   <div class="region-part__block">
+    <!-- 海外 -->
     <el-checkbox
+      class="checkbox-wrap"
       :indeterminate="part.indeterminate"
       :checked="part.selected"
+      v-model="part.selected"
       @change="selectPart"
       >{{ part.part }}
-      <el-checkbox-group
-        class="region-part__province"
-        :value="selectedCountries"
-        @change="selectCountry"
+    </el-checkbox>
+    <el-checkbox-group
+      class="region-part__province"
+      v-model="selectedCountries"
+      @change="selectCountry"
+    >
+      <el-checkbox
+        class="checkbox-wrap"
+        v-for="(country, index) in part.countries"
+        :key="country.regionId"
+        :label="country.regionId"
+        v-model="country.selected"
+        :indeterminate="country.indeterminate"
       >
-        <el-checkbox
-          v-for="(country, index) in part.countries"
-          :key="country.regionId"
-          :label="country.regionId"
-          :indeterminate="country.indeterminate"
+        <!-- 海外国家下级 -->
+        <el-popover
+          v-if="country.provinces && country.provinces.length"
+          placement="top"
+          trigger="hover"
         >
-          <el-popover
-            v-if="country.provinces && country.provinces.length"
-            placement="top"
-            trigger="hover"
-          >
-            <Township
-              :country="country"
-              :index="index"
-              @change="selectProvince(index)"
-            />
-            <span slot="reference">
-              {{ country.name }}
-              <span v-if="country.selectNum" class="region-part__num"
-                >({{ country.selectNum }})</span
-              >
-              <i class="region-province__more"></i>
-            </span>
-          </el-popover>
-          <template>
+          <Countries
+            :country="country"
+            :index="index"
+            @change="(val) => selectProvince(index)(val)"
+          />
+          <span slot="reference">
             {{ country.name }}
             <span v-if="country.selectNum" class="region-part__num"
               >({{ country.selectNum }})</span
             >
-          </template>
-        </el-checkbox>
-      </el-checkbox-group>
-    </el-checkbox>
+            <i class="region-province__more"></i>
+          </span>
+        </el-popover>
+        <template v-else>
+          {{ country.name }}
+          <span v-if="country.selectNum" class="region-part__num"
+            >({{ country.selectNum }})</span
+          >
+        </template>
+      </el-checkbox>
+    </el-checkbox-group>
   </div>
 </template>
 
 <script>
-import Township from "./Township.vue";
+import Countries from "./Countries.vue";
 export default {
   props: {
     change: Function,
@@ -57,17 +63,29 @@ export default {
     return {};
   },
   components: {
-    Township,
+    Countries,
   },
   computed: {
-    selectedCountries() {
-      return this.part.countries
-        .filter((e) => {
-          return e.selected;
-        })
-        .map((e) => {
-          return e.regionId;
-        });
+    selectedCountries: {
+      get() {
+        return this.part.countries
+          .filter((e) => {
+            return e.selected;
+          })
+          .map((e) => {
+            return e.regionId;
+          });
+      },
+      set(val) {
+        for (let i = 0; i < this.part.countries.length; i++) {
+          const item = this.part.countries[i];
+          if (val.includes(item.regionId)) {
+            this.$set(item, "selected", true);
+          } else {
+            this.$set(item, "selected", false);
+          }
+        }
+      },
     },
   },
   methods: {
@@ -96,10 +114,7 @@ export default {
         if (-1 !== e.indexOf(regionId)) {
           _country.selected = true;
           _country.indeterminate = false;
-          _country.selectNum =
-            _country.provinces && _country.provinces.length
-              ? _country.provinces.length
-              : 1;
+          _country.selectNum = (_country.provinces || []).length || 1;
           provinces.forEach((e) => {
             e.selected = true;
           });
@@ -140,6 +155,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -1,20 +1,20 @@
-
-
 <template>
   <div>
     <template v-for="(t, n) in regionList">
-      <CountyGroup
+      <!-- 国家 -->
+      <Overseas
         :key="t.part"
         v-if="t.countries.length"
         :part="t"
         @change="(val) => handleChange(n)(val)"
-      ></CountyGroup>
-      <Region
+      ></Overseas>
+      <!-- 国内 -->
+      <Regions
         :key="t.part"
         v-else
         :part="t"
         @change="(val) => handleChange(n)(val)"
-      ></Region>
+      ></Regions>
     </template>
     <div class="region-dialog__footer">
       <el-checkbox
@@ -38,27 +38,25 @@
 </template>
 
 <script>
-import CountyGroup from "./CountyGroup.vue";
-import Region from "./Region.vue";
+import Regions from "./Regions.vue";
+import Overseas from "./Overseas.vue";
 const defaultOptions = {
   showOversea: false,
   isShowThreeLevel: false,
   regions: [],
 };
-import regions from "./const/region";
-import { getCodes, directCity } from "./../utils";
+import { getCodeList, directCity } from "./../utils";
 
-function fetchRegionData() {
-  return new Promise((resolve) => {
-    resolve(regions);
-  });
-}
 export default {
   components: {
-    CountyGroup,
-    Region,
+    Regions,
+    Overseas,
   },
   props: {
+    data: {
+      type: Array,
+      required: true,
+    },
     showOversea: Boolean,
     isShowThreeLevel: Boolean,
     value: {
@@ -109,6 +107,11 @@ export default {
     this.getData();
   },
   methods: {
+    fetchRegionData() {
+      return new Promise((resolve) => {
+        resolve(this.data || []);
+      });
+    },
     handleChange(index) {
       return (newVal) => {
         let regionList = this.regionList,
@@ -129,6 +132,7 @@ export default {
         this.regionNum = selectNum;
       };
     },
+
     selectAll(checked) {
       const regionList = this.regionList || [];
       let regionNum = 0;
@@ -173,6 +177,7 @@ export default {
       this.$set(this, "regionList", regionList);
       this.regionNum = regionNum;
     },
+
     getData() {
       const showOversea = this.showOversea;
       const isShowThreeLevel = this.isShowThreeLevel;
@@ -183,7 +188,7 @@ export default {
       ) {
         this.initData(defaultOptions.regions);
       } else {
-        fetchRegionData({
+        this.fetchRegionData({
           showOversea: showOversea,
           isShowThreeLevel: isShowThreeLevel,
         }).then((regions) => {
@@ -355,29 +360,53 @@ export default {
     handleSubmit: function () {
       var selectedList = this.regionList.reduce(function (total, part) {
         var _provinces = part.provinces;
-        return total.concat(
-          _provinces.map(function (province) {
-            var cities = province.cities;
-            // 直辖市，并且cities为空
-            if (
-              directCity.indexOf(province.regionId) > -1 &&
-              !province.cities.length
-            ) {
-              cities = [
-                {
-                  regionId: province.regionId,
-                  name: province.name,
-                  selected: province.selected,
-                },
-              ];
-            }
-            return Object.assign(province, {
-              cities: cities,
-            });
-          })
-        );
+        var _countries = part.countries;
+        return total
+          .concat(
+            _provinces.map(function (province) {
+              var cities = province.cities;
+              // 直辖市，并且cities为空
+              if (
+                directCity.indexOf(province.regionId) > -1 &&
+                !province.cities.length
+              ) {
+                cities = [
+                  {
+                    regionId: province.regionId,
+                    name: province.name,
+                    selected: province.selected,
+                  },
+                ];
+              }
+              return Object.assign(province, {
+                cities: cities,
+              });
+            })
+          )
+          .concat(
+            _countries.map(function (country) {
+              var provinces = country.provinces;
+              var cities = [];
+              if (country.selected && provinces.length === 0) {
+                cities = [
+                  {
+                    regionId: country.regionId,
+                    name: country.name,
+                    selected: country.selected,
+                  },
+                ];
+              } else {
+                cities = provinces.map(function (province) {
+                  return Object.assign({}, province);
+                });
+              }
+              return Object.assign(country, {
+                cities: cities,
+              });
+            })
+          );
       }, new Array());
-      let value = getCodes(selectedList);
+      let value = getCodeList(selectedList);
 
       this.$emit("input", value);
       this.$emit("on-submit", value, selectedList);
@@ -387,5 +416,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>

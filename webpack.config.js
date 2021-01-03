@@ -27,12 +27,12 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          loaders: {
-            scss: 'style-loader!css-loader!sass-loader',
-            sass: 'style-loader!css-loader!sass-loader?indentedSyntax',
-          }
-        }
+
+      },
+      {
+        test: /\.(css|s[ac]ss)$/,
+        exclude: /node_modules/,
+        loader: 'style-loader!css-loader!sass-loader'
       },
       {
         test: /\.js$/,

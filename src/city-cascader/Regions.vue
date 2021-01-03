@@ -61,7 +61,6 @@ export default {
     Provinces,
   },
   props: {
-    change: Function,
     part: Object, // 其实是region
   },
   computed: {

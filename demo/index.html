@@ -4,32 +4,44 @@
 <head>
   <meta charset="utf-8">
   <title>vue-city-cascader</title>
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./css/index.css">
 </head>
 <!-- 引入样式 -->
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+<link rel="stylesheet" href="./css/element-ui.css">
 <!-- 引入组件库 -->
 <script src='./js/vue.js'></script>
 <script src='./js/element-ui.js'></script>
+<!-- 演示：两个数据源 data1(外海+县级) data2(地区-省份-市区) -->
+<script src='./data/data1.js'></script>
+<script src='./data/data2.js'></script>
+<script src='./data/data3.js'></script>
+<script src='./data/data4.js'></script>
 
 <body>
   <script src="../dist/vue-city-cascader.min.js"></script>
   <div id="app">
-    <city-cascader @on-submit="handleSubmit" v-model="provinces"></city-cascader>
+    <el-button type="text" @click="dialogVisible = true">外海+地区+省+市+县</el-button>
+    <el-dialog title="选择地域" :visible.sync="dialogVisible">
+      <city-cascader @on-close="dialogVisible = false" :data="data1" @on-submit="handleSubmit" v-model="provinces">
+      </city-cascader>
+    </el-dialog>
     <city-display :data="provincesData" @change="handleChangeDisplay" @remove-tag="handleDelete"></city-display>
-
   </div>
   <script>
     var Ctor = new Vue({
       name: 'test',
       data() {
         return {
+          dialogVisible: false,
+          data1: data3,
           provincesData: [],
           provinces: [],
         }
       },
       methods: {
         handleSubmit: function (value, source) {
+          debugger;
           this.provincesData = source;
         },
         handleChangeDisplay(value) {

@@ -56,7 +56,6 @@
 import Countries from "./Countries.vue";
 export default {
   props: {
-    change: Function,
     part: Object, // 其实是region
   },
   data() {
@@ -123,7 +122,7 @@ export default {
           _country.selected = false;
           _country.selectNum = 0;
           provinces.forEach((e) => {
-            return (e.selected = false);
+            e.selected = false;
           });
         }
       });
@@ -134,6 +133,7 @@ export default {
           return e.selected || e.indeterminate;
         });
       this.$emit("change", part);
+      this.$forceUpdate();
     },
     selectPart(checked) {
       var part = this.part,

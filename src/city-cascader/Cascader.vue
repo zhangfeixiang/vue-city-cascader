@@ -128,7 +128,8 @@ export default {
             selectNum += _city.selectNum || 0;
           });
         });
-        this.regionList = regionList;
+
+        this.$set(this, "regionList", regionList);
         this.regionNum = selectNum;
       };
     },
